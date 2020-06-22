@@ -1,6 +1,6 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { FiArrowLeft } from "react-icons/fi";
+import { FiArrowLeft, FiCheckCircle } from "react-icons/fi";
 import { Map, TileLayer, Marker } from "react-leaflet";
 import axios from 'axios';
 import { LeafletMouseEvent } from 'leaflet';
@@ -45,6 +45,8 @@ const CreatePoint = () => {
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
     const [selectedFile, setSelectedFile] = useState<File>();
 
+    const [success, setSuccess] = useState<boolean>(false);
+
     const history = useHistory();
 
     useEffect(() => {
@@ -64,7 +66,7 @@ const CreatePoint = () => {
     }, []);
 
     useEffect(() => {
-        axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then((response) => {
+        axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome').then((response) => {
             const ufInitials = response.data.map(uf => uf.sigla)
 
             setUfs(ufInitials);
@@ -145,16 +147,24 @@ const CreatePoint = () => {
             data.append('image', selectedFile);
         }
 
-        await api.post('points', data);
+         await api.post('points', data);
 
-        alert('Ponto de coleta cadastrado com sucesso!')
+        setSuccess(true);
+    }
 
+    function handleClickSuccess() { 
         history.push('/');
-
     }
 
     return (
         <div id="page-create-point">
+                {success &&(
+                    <div className="success" onClick={() => handleClickSuccess()}>
+                        <FiCheckCircle size={26} />
+                        Cadastrado com sucesso. 
+                    </div>
+
+                )}
             <header>
                 <img src={logo} alt="Ecoleta" />
 

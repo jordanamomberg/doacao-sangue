@@ -8,11 +8,12 @@
   align-items: center;
   margin-top: 48px;
   outline: 0;
+  cursor: pointer;
 }
 
 .dropzone img {
   width: 100%;
-  height: 100%; 
+  height: 100%;
   object-fit: cover;
 }
 
@@ -28,11 +29,10 @@
   align-items: center;
   color: var(--primary-color);
   background-color: rgba(255, 229, 230, 0.32);
-
 }
 
 .dropzone p svg {
-  color: #B61D23;
+  color: #b61d23;
   width: 24px;
   height: 24px;
   margin-bottom: 8px;
