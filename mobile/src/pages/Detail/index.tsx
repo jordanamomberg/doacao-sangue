@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Image, Text, Linking } from "react-
 import Constants from "expo-constants";
 import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { RectButton } from 'react-native-gesture-handler';
+import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import api from '../../services/api';
 import * as MailComposer from 'expo-mail-composer';
 
@@ -63,20 +63,35 @@ const Detail = () => {
     <>
         <View style={styles.container}>
             <TouchableOpacity onPress={handleNavigatoToBack}>
-                <Icon name="arrow-left" color="#34cb79" size={20} />
+                <Icon name="arrow-left" color="#B61D23" size={20} />
             </TouchableOpacity>
 
-            <Image style={styles.pointImage} source={{ uri: data.point.image_url }}/> 
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Text style={styles.pointName}>{data.point.name}</Text> 
+              
+              <Image style={styles.pointImage} source={{ uri: data.point.image_url }}/> 
 
-            <Text style={styles.pointName}>{data.point.name}</Text> 
-            <Text style={styles.pointItems}>
-              {data.items.map(item => item.title).join(', ')}
-            </Text>
+              <Text style={styles.needBlood}>O que você precisa saber antes de doar sangue</Text>
+              <View style={styles.descriptionBlood}>
+                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Estar alimentado. </Text>
+                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Evite alimentos gordurosos nas 3 horas que antecedem a doação de sangue.</Text>
+                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Caso seja após o almoço, aguardar 2 horas.</Text>
+                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Ter dormido pelo menos 6 horas nas últimas 24 horas.</Text>
+                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Pessoas com idade entre 60 e 69 anos só poderão doar sangue se já o tiverem feito antes dos 60 anos.</Text>
+                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />A frequência máxima é de quatro doações de sangue anuais para o homem e de três doações de sangue anuais para as mulher.</Text>
+                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />O intervalo mínimo entre uma doação de sangue e outra é de dois meses para os homens e de três meses para as mulheres.</Text>
+              </View>
+              
+              <Text style={styles.needBlood}>Necessidade maior nos tipos sanguíneos:</Text>
+              <Text style={styles.pointItems}>
+                {data.items.map(item => item.title).join(', ')}
+              </Text>
 
-            <View style={styles.address}>
-                <Text style={styles.addressTitle}>Endereço:</Text> 
-                <Text style={styles.addressContent}>{data.point.city}, {data.point.uf}</Text>
-            </View>
+              <View style={styles.address}>
+                  <Text style={styles.addressTitle}>Endereço:</Text> 
+                  <Text style={styles.addressContent}>{data.point.city}, {data.point.uf}</Text>
+              </View>
+            </ScrollView>
         </View>
         <View style={styles.footer}>
             <RectButton style={styles.button} onPress={handleWhatsapp}>
@@ -98,6 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 32,
     paddingTop: 20 + Constants.statusBarHeight,
+    backgroundColor: "#fff",
   },
 
   pointImage: {
@@ -105,22 +121,39 @@ const styles = StyleSheet.create({
     height: 120,
     resizeMode: "cover",
     borderRadius: 10,
-    marginTop: 32,
+    marginTop: 8,
+  },
+
+  needBlood: {
+    color: "#CD444A",
+    fontFamily: "Roboto_500Medium",
+    fontSize: 16,
+    marginTop: 24,
+  },
+
+  descriptionBlood: {
+    fontFamily: "Roboto_400Regular",
+    marginTop: 8,
+    color: "#565656",
+  },
+
+  descriptionText: {
+    marginBottom: 4,
   },
 
   pointName: {
-    color: "#322153",
+    color: "#B61D23",
     fontSize: 28,
     fontFamily: "Ubuntu_700Bold",
-    marginTop: 24,
+    marginTop: 8,
   },
 
   pointItems: {
     fontFamily: "Roboto_400Regular",
-    fontSize: 16,
+    fontSize: 24,
     lineHeight: 24,
     marginTop: 8,
-    color: "#6C6C80",
+    color: "#565656",
   },
 
   address: {
@@ -128,7 +161,7 @@ const styles = StyleSheet.create({
   },
 
   addressTitle: {
-    color: "#322153",
+    color: "#CD444A",
     fontFamily: "Roboto_500Medium",
     fontSize: 16,
   },
@@ -137,7 +170,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto_400Regular",
     lineHeight: 24,
     marginTop: 8,
-    color: "#6C6C80",
+    color: "#565656",
   },
 
   footer: {
@@ -147,11 +180,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     flexDirection: "row",
     justifyContent: "space-between",
+    backgroundColor: "rgba(182,29,35,0.03)"
   },
 
   button: {
     width: "48%",
-    backgroundColor: "#34CB79",
+    backgroundColor: "#B61D23",
     borderRadius: 10,
     height: 50,
     flexDirection: "row",

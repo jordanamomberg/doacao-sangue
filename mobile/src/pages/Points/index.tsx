@@ -121,70 +121,72 @@ console.log(points)
   return (
     <>
       <View style={styles.container}>
-        <TouchableOpacity onPress={handleNavigatoToBack}>
-          <Icon name="arrow-left" color="#34cb79" size={20} />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={handleNavigatoToBack}>
+            <Icon name="arrow-left" color="#B61D23" size={20} />
+          </TouchableOpacity>
 
-        <Text style={styles.title}>Bem Vindo!</Text>
-        <Text style={styles.description}>
-          Encontre no mapa um ponto de coleta.
-        </Text>
+          <Text style={styles.title}>Bem Vindo!</Text>
 
-        <View style={styles.mapContainer}>
-          {initialPosition[0] !== 0 && (
-            <MapView
-              style={styles.map}
-              initialRegion={{
-                latitude: initialPosition[0],
-                longitude: initialPosition[1],
-                latitudeDelta: 0.014,
-                longitudeDelta: 0.014,
-              }}
+          <View style={styles.itemsContainer}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20 }}
             >
-              {points.map((point) => (
-                <Marker
-                  key={String(point.id)}
-                  style={styles.mapMarker}
-                  onPress={() => handleNavigationToDetail(point.id)}
-                  coordinate={{
-                    latitude: point.latitude,
-                    longitude: point.longitude,
-                  }}
+              {items.map((item) => (
+                <TouchableOpacity
+                  key={String(item.id)}
+                  style={[
+                    styles.item,
+                    selectedItems.includes(item.id) ? styles.selectedItem : {},
+                  ]}
+                  onPress={() => handleSelectItems(item.id)}
+                  activeOpacity={0.6}
                 >
-                  <View style={styles.mapMarkerContainer}>
-                    <Image
-                      style={styles.mapMarkerImage}
-                      source={{ uri: point.image_url }}
-                    />
-                    <Text style={styles.mapMarkerTitle}>{point.name}</Text>
-                  </View>
-                </Marker>
+                <SvgUri width={42} height={42} uri={item.image_url} />
+                  <Text style={styles.itemTitle}>{item.title}</Text>
+                </TouchableOpacity>
               ))}
-            </MapView>
-          )}
-        </View>
-        <View style={styles.itemsContainer}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 20 }}
-          >
-            {items.map((item) => (
-              <TouchableOpacity
-                key={String(item.id)}
-                style={[
-                  styles.item,
-                  selectedItems.includes(item.id) ? styles.selectedItem : {},
-                ]}
-                onPress={() => handleSelectItems(item.id)}
-                activeOpacity={0.6}
+            </ScrollView>
+          </View>
+          
+          <Text style={styles.description}>
+            Encontre no mapa um ponto de coleta.
+          </Text>
+
+          <View style={styles.mapContainer}>
+            {initialPosition[0] !== 0 && (
+              <MapView
+                style={styles.map}
+                initialRegion={{
+                  latitude: initialPosition[0],
+                  longitude: initialPosition[1],
+                  latitudeDelta: 0.014,
+                  longitudeDelta: 0.014,
+                }}
               >
-              <SvgUri width={42} height={42} uri={item.image_url} />
-                <Text style={styles.itemTitle}>{item.title}</Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View>
+                {points.map((point) => (
+                  <Marker
+                    key={String(point.id)}
+                    style={styles.mapMarker}
+                    onPress={() => handleNavigationToDetail(point.id)}
+                    coordinate={{
+                      latitude: point.latitude,
+                      longitude: point.longitude,
+                    }}
+                  >
+                    <View style={styles.mapMarkerContainer}>
+                      <Image
+                        style={styles.mapMarkerImage}
+                        source={{ uri: point.image_url }}
+                      />
+                      <Text style={styles.mapMarkerTitle}>{point.name}</Text>
+                    </View>
+                  </Marker>
+                ))}
+              </MapView>
+            )}
+          </View>
       </View>
     </>
   );
@@ -195,9 +197,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 32,
     paddingTop: 20 + Constants.statusBarHeight,
+    backgroundColor: "#fffc",
   },
 
   title: {
+    color: "#B61D23",
     fontSize: 20,
     fontFamily: "Ubuntu_700Bold",
     marginTop: 24,
@@ -231,7 +235,7 @@ const styles = StyleSheet.create({
   mapMarkerContainer: {
     width: 90,
     height: 70,
-    backgroundColor: "#34CB79",
+    backgroundColor: "#CD444A",
     flexDirection: "column",
     borderRadius: 8,
     overflow: "hidden",
@@ -259,7 +263,7 @@ const styles = StyleSheet.create({
   },
 
   item: {
-    backgroundColor: "#fff",
+    backgroundColor: "rgba(255, 229, 230, 0.32)",
     borderWidth: 2,
     borderColor: "#eee",
     height: 120,
@@ -276,7 +280,8 @@ const styles = StyleSheet.create({
   },
 
   selectedItem: {
-    borderColor: "#34CB79",
+    backgroundColor: "#FFDDDE",
+    borderColor: "#CD444A",
     borderWidth: 2,
   },
 

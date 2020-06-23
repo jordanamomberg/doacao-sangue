@@ -40,29 +40,31 @@ const Home = () => {
           <Image source={require("../../assets/logo.png")} />
           <View>
             <Text style={styles.title}>
-              Seu marketplace de coleta de resíduos
+              Doe Sangue
+              Salve Vidas
             </Text>
             <Text style={styles.description}>
-              Ajudamos pessoas a encontrarem pontos de coleta de forma eficiente.
+              Pra quem doa são alguns minutos, pra quem recebe é uma vida inteira.
+              Ajudamos você encontrar pontos de coleta.
             </Text>
-          </View> 
+          </View>
         </View>
 
         <View style={styles.footer}>
-          <TextInput 
-            style={styles.input} 
-            placeholder="Digite a UF" 
+          <TextInput
+            style={styles.input}
+            placeholder="Digite a UF"
             value={uf} onChangeText={setUf}
             maxLength={2}
             autoCapitalize="characters"
             autoCorrect={false}
-          /> 
-          <TextInput 
-            style={styles.input} 
-            placeholder="Digite a Cidadde" 
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Digite a Cidadde"
             value={city} onChangeText={setCity}
             autoCorrect={false}
-          /> 
+          />
           <RectButton style={styles.button} onPress={handleNavigateToPoints}>
             <View style={styles.buttonIcon}>
               <Text>
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 32,
-    backgroundColor: "#f0f0f5",
+    backgroundColor: "#rgba(182,29,35,0.03)",
   },
 
   main: {
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: "#322153",
+    color: "#B61D23",
     fontSize: 32,
     fontFamily: "Ubuntu_700Bold",
     maxWidth: 260,
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
   },
 
   description: {
-    color: "#6C6C80",
+    color: "#565656",
     fontSize: 16,
     marginTop: 16,
     fontFamily: "Roboto_400Regular",
@@ -120,7 +122,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: "#34CB79",
+    backgroundColor: "#B61D23",
     height: 60,
     flexDirection: "row",
     borderRadius: 10,
