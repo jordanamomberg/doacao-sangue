@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Image, Text, Linking } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Image, Text, Linking, ScrollViewComponent } from "react-native";
 import Constants from "expo-constants";
 import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -71,18 +71,24 @@ const Detail = () => {
               
               <Image style={styles.pointImage} source={{ uri: data.point.image_url }}/> 
 
-              <Text style={styles.needBlood}>O que você precisa saber antes de doar sangue</Text>
-              <View style={styles.descriptionBlood}>
-                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Estar alimentado. </Text>
-                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Evite alimentos gordurosos nas 3 horas que antecedem a doação de sangue.</Text>
-                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Caso seja após o almoço, aguardar 2 horas.</Text>
-                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Ter dormido pelo menos 6 horas nas últimas 24 horas.</Text>
-                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Pessoas com idade entre 60 e 69 anos só poderão doar sangue se já o tiverem feito antes dos 60 anos.</Text>
-                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />A frequência máxima é de quatro doações de sangue anuais para o homem e de três doações de sangue anuais para as mulher.</Text>
-                <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />O intervalo mínimo entre uma doação de sangue e outra é de dois meses para os homens e de três meses para as mulheres.</Text>
+              <View style={styles.requirements}>
+                <ScrollView
+                  scrollToOverflowEnabled
+                >
+                  <Text style={styles.needBlood}>O que você precisa saber antes de doar sangue</Text>
+                  <View style={styles.descriptionBlood}>
+                    <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Estar alimentado. </Text>
+                    <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Evite alimentos gordurosos nas 3 horas que antecedem a doação de sangue.</Text>
+                    <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Caso seja após o almoço, aguardar 2 horas.</Text>
+                    <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Ter dormido pelo menos 6 horas nas últimas 24 horas.</Text>
+                    <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />Pessoas com idade entre 60 e 69 anos só poderão doar sangue se já o tiverem feito antes dos 60 anos.</Text>
+                    <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />A frequência máxima é de quatro doações de sangue anuais para o homem e de três doações de sangue anuais para as mulher.</Text>
+                    <Text style={styles.descriptionText}><Icon name="check" color="#B61D23" size={16} />O intervalo mínimo entre uma doação de sangue e outra é de dois meses para os homens e de três meses para as mulheres.</Text>
+                  </View>
+                </ScrollView>
               </View>
               
-              <Text style={styles.needBlood}>Necessidade maior nos tipos sanguíneos:</Text>
+              <Text style={styles.needBloodTwo}>Necessidade maior nos tipos sanguíneos:</Text>
               <Text style={styles.pointItems}>
                 {data.items.map(item => item.title).join(', ')}
               </Text>
@@ -122,9 +128,22 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     borderRadius: 10,
     marginTop: 8,
+    marginBottom: 24, 
+  },
+
+  requirements: {
+    height: 240,
+    width: 280,
   },
 
   needBlood: {
+    color: "#CD444A",
+    fontFamily: "Roboto_500Medium",
+    fontSize: 16,
+    marginRight: 30,
+  },
+
+  needBloodTwo: {
     color: "#CD444A",
     fontFamily: "Roboto_500Medium",
     fontSize: 16,
@@ -135,6 +154,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto_400Regular",
     marginTop: 8,
     color: "#565656",
+    marginRight: 30,
   },
 
   descriptionText: {

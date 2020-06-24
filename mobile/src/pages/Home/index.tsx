@@ -31,17 +31,13 @@ const Home = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <ImageBackground
-        source={require("../../assets/home-background.png")}
-        style={styles.container}
-        imageStyle={{ width: 204, height: 258 }}
-      >
+      <View style={styles.container}>
         <View style={styles.main}>
-          <Image source={require("../../assets/logo.png")} />
+          <Image source={require("../../assets/logo.png")} height={} />
           <View>
             <Text style={styles.title}>
-              Doe Sangue
-              Salve Vidas
+              <Text style={styles.textGray}>Doe</Text> Sangue
+              <Text style={styles.textGray}>Salve</Text> Vidas
             </Text>
             <Text style={styles.description}>
               Pra quem doa são alguns minutos, pra quem recebe é uma vida inteira.
@@ -74,7 +70,7 @@ const Home = () => {
             <Text style={styles.buttonText}>Entrar</Text>
           </RectButton>
         </View>
-      </ImageBackground>
+        </View>
     </KeyboardAvoidingView>
   );
 };
@@ -83,7 +79,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 32,
-    backgroundColor: "#rgba(182,29,35,0.03)",
   },
 
   main: {
@@ -96,7 +91,11 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontFamily: "Ubuntu_700Bold",
     maxWidth: 260,
-    marginTop: 64,
+    marginTop: 25,
+  },
+
+  textGray: {
+    color: "#565656",
   },
 
   description: {
