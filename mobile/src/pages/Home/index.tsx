@@ -31,46 +31,52 @@ const Home = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <View style={styles.container}>
-        <View style={styles.main}>
-          <Image source={require("../../assets/logo.png")} height={} />
-          <View>
-            <Text style={styles.title}>
-              <Text style={styles.textGray}>Doe</Text> Sangue
-              <Text style={styles.textGray}>Salve</Text> Vidas
-            </Text>
-            <Text style={styles.description}>
-              Pra quem doa são alguns minutos, pra quem recebe é uma vida inteira.
-              Ajudamos você encontrar pontos de coleta.
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.footer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite a UF"
-            value={uf} onChangeText={setUf}
-            maxLength={2}
-            autoCapitalize="characters"
-            autoCorrect={false}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Digite a Cidadde"
-            value={city} onChangeText={setCity}
-            autoCorrect={false}
-          />
-          <RectButton style={styles.button} onPress={handleNavigateToPoints}>
-            <View style={styles.buttonIcon}>
-              <Text>
-                <Icon name="arrow-right" color="#FFF" size={24} />
+      <ImageBackground
+        source={require("../../assets/home-background.png")}
+        style={styles.container}
+        imageStyle={{ width: 460, height: 300 }}
+      >
+          <View style={styles.main}>
+            <Image source={require("../../assets/logo.png")} style={styles.logo}/>
+            <View>
+              <Text style={styles.title}>
+                <Text style={styles.textGray}>Doe</Text> Sangue
+              </Text>
+              <Text style={styles.title}>
+                <Text style={styles.textGray}>Salve</Text> Vidas
+              </Text>
+              <Text style={styles.description}>
+                Pra quem doa são alguns minutos, pra quem recebe é uma vida inteira.
+                Ajudamos você encontrar pontos de coleta.
               </Text>
             </View>
-            <Text style={styles.buttonText}>Entrar</Text>
-          </RectButton>
-        </View>
-        </View>
+          </View>
+
+          <View style={styles.footer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Digite a UF"
+              value={uf} onChangeText={setUf}
+              maxLength={2}
+              autoCapitalize="characters"
+              autoCorrect={false}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Digite a Cidadde"
+              value={city} onChangeText={setCity}
+              autoCorrect={false}
+            />
+            <RectButton style={styles.button} onPress={handleNavigateToPoints}>
+              <View style={styles.buttonIcon}>
+                <Text>
+                  <Icon name="arrow-right" color="#FFF" size={24} />
+                </Text>
+              </View>
+              <Text style={styles.buttonText}>Entrar</Text>
+            </RectButton>
+          </View>
+        </ImageBackground>
     </KeyboardAvoidingView>
   );
 };
@@ -79,6 +85,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 32,
+    backgroundColor: "rgba(187,33,39, 0.08)",
   },
 
   main: {
@@ -86,12 +93,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  logo: {
+    width: 150,
+    height: 70,
+    resizeMode: "contain",
+    marginBottom: 16,
+  },
+
   title: {
     color: "#B61D23",
     fontSize: 32,
     fontFamily: "Ubuntu_700Bold",
     maxWidth: 260,
-    marginTop: 25,
   },
 
   textGray: {
@@ -100,11 +113,11 @@ const styles = StyleSheet.create({
 
   description: {
     color: "#565656",
-    fontSize: 16,
+    fontSize: 14,
     marginTop: 16,
     fontFamily: "Roboto_400Regular",
     maxWidth: 260,
-    lineHeight: 24,
+    lineHeight: 18,
   },
 
   footer: {},
@@ -112,7 +125,7 @@ const styles = StyleSheet.create({
   select: {},
 
   input: {
-    height: 60,
+    height: 52,
     backgroundColor: "#FFF",
     borderRadius: 10,
     marginBottom: 8,
